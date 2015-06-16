@@ -1,0 +1,1 @@
+{"version":3,"sources":["../es6/BingMaps.es6"],"names":[],"mappings":";;;;IAAM,OAAO,YAAP,OAAO;wBAAP,OAAO","file":"es6/BingMaps.es6","sourcesContent":["class BingMap {}\n"]}
