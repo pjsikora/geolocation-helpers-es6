@@ -21,33 +21,58 @@ var GoogleMap = (function (_Map) {
   _inherits(GoogleMap, _Map);
 
   _createClass(GoogleMap, [{
-    key: 'setParams',
-    value: function setParams(lat, lng, zoom) {
-      this.params['lat'] = lat;
-      this.params['lng'] = lng;
-      this.params['zoom'] = zoom;
-    }
-  }, {
     key: 'initialize',
     value: function initialize() {
-      console.log('initialize');
       var mapOptions = {
         center: {
           lat: this.params.lat,
           lng: this.params.lng
         },
         zoom: this.params.zoom
-      };
-      console.log(this.renderElement);
+      },
+          map = new google.maps.Map(this.renderElement, mapOptions);
+    }
+  }, {
+    key: 'drawRoute',
+    value: function drawRoute(route) {
+      this.routeArray = _currentRouteArray;
 
-      var map = new google.maps.Map(this.renderElement, mapOptions);
+      var finalRouteArray = [],
+          centerPoint = this.getCenterPoint();
+      mapOptions = {
+        zoom: 14,
+        center: new google.maps.LatLng(centerPoint.latitude, centerPoint.longitude)
+      }, map = new google.maps.Map(settings.$element, mapOptions);
+
+      this.routeArray.forEach(function (el) {
+        finalRouteArray.push(new google.maps.LatLng(el.latitude, el.longitude));
+
+        var myLatlng = new google.maps.LatLng(el.latitude, el.longitude);
+        var marker = new google.maps.Marker({
+          position: myLatlng,
+          map: map,
+          title: 'Hello World!'
+        });
+      });
+
+      var finalRoute = new google.maps.Polyline({
+        path: finalRouteArray,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1,
+        strokeWeight: 2
+      });
+
+      finalRoute.setMap(map);
     }
   }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
 
-      google.maps.event.addDomListener(window, 'load', this.initialize);
-      console.log('render');
+      google.maps.event.addDomListener(window, 'load', function () {
+        return _this2.initialize();
+      });
     }
   }]);
 

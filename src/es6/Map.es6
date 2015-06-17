@@ -12,8 +12,18 @@ class Map {
     this.routes[name] = route;
   }
 
-  getRoute() {
-    return this.route;
+  getRoute(name) {
+    return this.route['name'];
+  }
+
+  drawRoutes() {}
+
+  drawRoute() {}
+
+  setParams(lat, lng, zoom) {
+    this.params['lat'] = lat;
+    this.params['lng'] = lng;
+    this.params['zoom'] = zoom;
   }
 
   getCenterPoint() {
